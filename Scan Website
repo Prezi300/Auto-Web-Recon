@@ -3,13 +3,11 @@
 for name in $(cat websites); do
         mkdir $name.
         touch $name./gobuster
-        gobuster dir -t 25 -r -e -u $name -s "204,301,302,307,401,403" -w SecLists/Discovery/Web-Content/common.txt > $>
+        gobuster dir -t 25 -r -e -u $name -s "204,301,302,307,401,403" -w SecLists/Discovery/Web-Content/common.txt > $name./gobuster
         touch $name./whatweb
         whatweb -v $name > $name./whatweb
         touch $name./Sublist3r
-        Sublist3r/./sublist3r.py -v -d vulnweb.com -t 25 -e google,bing,yahoo,baidu,ask,Netcraft,ThreatCrowd,DNSdumpste>
+        Sublist3r/./sublist3r.py -v -d vulnweb.com -t 25 -e google,bing,yahoo,baidu,ask,Netcraft,ThreatCrowd,DNSdumpster,ReverseDNS,aol,excite,duckduckgo,"wolfram alpha",yandex,lycos,chacha > $name./sublister
         touch $name./nikto
         nikto -host $name > $name./nikto
 done
-
-
