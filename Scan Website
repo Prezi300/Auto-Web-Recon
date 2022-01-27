@@ -1,12 +1,15 @@
 #!/bin/bash
 
 for name in $(cat websites); do
-        touch $name'gobuster'
-        gobuster dir -t 25 -r -e -u $name -s "204,301,302,307,401,403" -w SecLists/Discovery/Web-Content/common.txt > $>        
-        whatweb -v $name > $name'whatweb'
-        Sublist3r/./sublist3r.py -v -d vulnweb.com -t 25 -e google,bing,yahoo,baidu,ask,Netcraft,ThreatCrowd,DNSdumpste>        
-        nikto -host $name > $name'nikto'
-        nmap -T4 -Pn -sV -sS $name > $name'nmap'
+        mkdir $name.
+        touch $name./gobuster
+        gobuster dir -t 25 -r -e -u $name -s "204,301,302,307,401,403" -w SecLists/Discovery/Web-Content/common.txt > $>
+        touch $name./whatweb
+        whatweb -v $name > $name./whatweb
+        touch $name./Sublist3r
+        Sublist3r/./sublist3r.py -v -d vulnweb.com -t 25 -e google,bing,yahoo,baidu,ask,Netcraft,ThreatCrowd,DNSdumpste>
+        touch $name./nikto
+        nikto -host $name > $name./nikto
 done
 
 
