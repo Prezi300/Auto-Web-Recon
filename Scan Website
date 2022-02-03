@@ -1,13 +1,24 @@
 #!/bin/bash
 
-for name in $(cat websites); do
-        mkdir $name.
-        touch $name./gobuster
-        gobuster dir -t 25 -r -e -u $name -s "204,301,302,307,401,403" -w SecLists/Discovery/Web-Content/common.txt > $name./gobuster
-        touch $name./whatweb
-        whatweb -v $name > $name./whatweb
-        touch $name./Sublist3r
-        Sublist3r/./sublist3r.py -v -d vulnweb.com -t 25 -e google,bing,yahoo,baidu,ask,Netcraft,ThreatCrowd,DNSdumpster,ReverseDNS,aol,excite,duckduckgo,"wolfram alpha",yandex,lycos,chacha > $name./sublister
-        touch $name./nikto
-        nikto -host $name > $name./nikto
+for name in $(cat web); do
+        touch scannedsites/$name.
+        mkdir bugbounty/$name.
+        touch bugbounty/$name./nslookup
+        nslookup $name > bugbounty/$name./nslookup
+        touch bugbounty/$name./dnsrecon
+        dnsrecon -d $name > bugbounty/$name./dnsrecon
+        touch bugbounty/$name./wafw00f
+        wafw00f $name > bugbounty/$name./wafw00f
+        touch bugbounty/$name./dnsrecon
+        dnsrecon -d vulnweb.com > bugbounty/$name./dnsrecon
+        touch bugbounty/$name./gobuster
+        gobuster dir -t 25 -r -e -u $name -s "204,301,302,307,401,403" -w SecLists/Discovery/Web-Content/common.txt > b>        touch bugbounty/$name./wfuzz
+        wfuzz -w SecLists/Discovery/Web-Content/common.txt --hc 404 testphp.vulnweb.com/FUZZ > bugbounty/$name./wfuzz
+        touch bugbounty/$name./whatweb
+        whatweb -v $name > bugbounty/$name./whatweb
+        touch bugbounty/$name./sublister
+        Sublist3r/./sublist3r.py -v -d $name -t 25 -e google,bing,yahoo,baidu,ask,Netcraft,ThreatCrowd,DNSdumpster,Reve>        touch bugbounty/$name./nikto
+        nikto -host $name > bugbounty/$name./nikto
+        touch bugbounty/$name./sqlmap
+        sqlmap --url $name --forms --dbs --crawl=2 --thread=10 --batch > bugbounty/$name./sqlmap
 done
